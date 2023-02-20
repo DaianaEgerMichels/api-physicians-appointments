@@ -3,6 +3,7 @@ package com.github.daianaegermichels.api.controller;
 import com.github.daianaegermichels.api.physician.Physician;
 import com.github.daianaegermichels.api.physician.PhysicianData;
 import com.github.daianaegermichels.api.physician.PhysicianRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +18,7 @@ public class PhysicianController {
     private PhysicianRepository repository;
     @PostMapping
     @Transactional
-    public void register(@RequestBody PhysicianData data) {
+    public void register(@RequestBody @Valid PhysicianData data) {
 
         repository.save(new Physician(data));
     }
