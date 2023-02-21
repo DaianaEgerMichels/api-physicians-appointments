@@ -1,0 +1,1 @@
+alter table physicians modify active tinyint not null;
