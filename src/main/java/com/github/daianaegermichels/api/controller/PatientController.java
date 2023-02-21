@@ -1,9 +1,6 @@
 package com.github.daianaegermichels.api.controller;
 
-import com.github.daianaegermichels.api.patient.Patient;
-import com.github.daianaegermichels.api.patient.PatientData;
-import com.github.daianaegermichels.api.patient.PatientDataList;
-import com.github.daianaegermichels.api.patient.PatientRepository;
+import com.github.daianaegermichels.api.patient.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,6 +23,20 @@ public class PatientController {
     }
     @GetMapping
     public Page<PatientDataList> list(@PageableDefault(size = 10, sort = {"name"}) Pageable pageable) {
-        return repository.findAll(pageable).map(PatientDataList::new);
+        return repository.findAllByActiveTrue(pageable).map(PatientDataList::new);
+    }
+
+    @PutMapping
+    @Transactional
+    public void update(@RequestBody @Valid PatientDataUpdate data) {
+        var patient = repository.getReferenceById(data.id());
+        patient.updateInformation(data);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void delete(@PathVariable Long id) {
+        var patient = repository.getReferenceById(id);
+        patient.delete();
     }
 }
