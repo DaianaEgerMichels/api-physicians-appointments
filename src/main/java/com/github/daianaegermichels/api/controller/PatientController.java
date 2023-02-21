@@ -46,4 +46,10 @@ public class PatientController {
         patient.delete();
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity patientById(@PathVariable Long id) {
+        var patient = repository.getReferenceById(id);
+        return ResponseEntity.ok(new PatientDetails(patient));
+    }
 }
