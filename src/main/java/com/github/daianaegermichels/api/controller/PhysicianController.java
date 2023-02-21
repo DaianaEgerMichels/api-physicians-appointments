@@ -1,9 +1,6 @@
 package com.github.daianaegermichels.api.controller;
 
-import com.github.daianaegermichels.api.physician.Physician;
-import com.github.daianaegermichels.api.physician.PhysicianData;
-import com.github.daianaegermichels.api.physician.PhysicianDataList;
-import com.github.daianaegermichels.api.physician.PhysicianRepository;
+import com.github.daianaegermichels.api.physician.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,5 +25,12 @@ public class PhysicianController {
     @GetMapping
     public Page<PhysicianDataList> list(@PageableDefault(size = 10, sort = {"name"}) Pageable pageable) {
         return repository.findAll(pageable).map(PhysicianDataList::new);
+    }
+
+    @PutMapping
+    @Transactional
+    public void update(@RequestBody @Valid PhysicianDataUpdate data) {
+        var physician = repository.getReferenceById(data.id());
+        physician.updateInformation(data);
     }
 }
