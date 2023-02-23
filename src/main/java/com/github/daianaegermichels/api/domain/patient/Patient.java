@@ -1,6 +1,6 @@
-package com.github.daianaegermichels.api.patient;
+package com.github.daianaegermichels.api.domain.patient;
 
-import com.github.daianaegermichels.api.address.Address;
+import com.github.daianaegermichels.api.domain.address.Address;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

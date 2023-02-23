@@ -1,4 +1,4 @@
-package com.github.daianaegermichels.api.physician;
+package com.github.daianaegermichels.api.domain.physician;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

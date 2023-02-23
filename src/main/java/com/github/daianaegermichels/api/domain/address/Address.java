@@ -1,4 +1,4 @@
-package com.github.daianaegermichels.api.address;
+package com.github.daianaegermichels.api.domain.address;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

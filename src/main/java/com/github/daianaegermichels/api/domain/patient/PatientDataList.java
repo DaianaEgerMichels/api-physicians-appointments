@@ -1,4 +1,4 @@
-package com.github.daianaegermichels.api.patient;
+package com.github.daianaegermichels.api.domain.patient;
 
 public record PatientDataList(Long id, String name, String email, String cpf) {
      public PatientDataList(Patient patient) {

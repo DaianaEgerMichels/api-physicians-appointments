@@ -1,4 +1,4 @@
-package com.github.daianaegermichels.api.address;
+package com.github.daianaegermichels.api.domain.address;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

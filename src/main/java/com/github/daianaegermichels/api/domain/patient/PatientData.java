@@ -1,6 +1,6 @@
-package com.github.daianaegermichels.api.patient;
+package com.github.daianaegermichels.api.domain.patient;
 
-import com.github.daianaegermichels.api.address.AddressData;
+import com.github.daianaegermichels.api.domain.address.AddressData;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

@@ -1,4 +1,4 @@
-package com.github.daianaegermichels.api.physician;
+package com.github.daianaegermichels.api.domain.physician;
 
 public enum Specialty {
     ORTHOPEDICS,

@@ -1,6 +1,6 @@
 package com.github.daianaegermichels.api.controller;
 
-import com.github.daianaegermichels.api.patient.*;
+import com.github.daianaegermichels.api.domain.patient.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

@@ -1,6 +1,6 @@
-package com.github.daianaegermichels.api.physician;
+package com.github.daianaegermichels.api.domain.physician;
 
-import com.github.daianaegermichels.api.address.Address;
+import com.github.daianaegermichels.api.domain.address.Address;
 
 public record PhysicianDetails(Long id, String name, String email, String crm, String phone, Specialty specialty, Address address) {
     public PhysicianDetails(Physician physician){

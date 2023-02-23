@@ -1,4 +1,4 @@
-package com.github.daianaegermichels.api.physician;
+package com.github.daianaegermichels.api.domain.physician;
 
 public record PhysicianDataList(String name, String email, String crm, Specialty specialty) {
     public PhysicianDataList(Physician physician) {
