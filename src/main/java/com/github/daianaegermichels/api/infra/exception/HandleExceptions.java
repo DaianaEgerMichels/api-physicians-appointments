@@ -1,4 +1,4 @@
-package com.github.daianaegermichels.api.infra;
+package com.github.daianaegermichels.api.infra.exception;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
