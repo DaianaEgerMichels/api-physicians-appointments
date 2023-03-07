@@ -16,6 +16,9 @@ public class AppointmentScheduling {
     private PhysicianRepository physicianRepository;
     @Autowired
     private PatientRepository patientRepository;
+
+    @Autowired
+    private AppointmentsRepository appointmentsRepository;
     public void toSchedule(AppointmentsData data) {
         if (!patientRepository.existsById(data.idPatient())) {
             throw new ValidationException("The patient ID entered does not exist!");
@@ -26,7 +29,7 @@ public class AppointmentScheduling {
 
         var patient = patientRepository.findById(data.idPatient()).get();
         var physician = choosePhysician(data);
-        var appointments = new Appointments(null, physician, patient, data.data());
+        var appointments = new Appointments(null, physician, patient, data.data(), null);
         repository.save(appointments);
     }
 
@@ -36,9 +39,18 @@ public class AppointmentScheduling {
         }
 
         if (data.specialty() == null) {
-            throw new ValidationException("Specialty is mandatory when the doctor is not informed");
+            throw new ValidationException("Specialty is mandatory when the doctor is not informed!");
         }
 
         return physicianRepository.chooseFreeRandomPhysicianOnDate(data.specialty(), data.data());
+    }
+
+    public void cancel(AppointmentsCancelData data) {
+            if (!appointmentsRepository.existsById(data.idAppointment())) {
+                throw new ValidationException("The appointment ID entered does not exist!");
+            }
+
+            var appointment = appointmentsRepository.getReferenceById(data.idAppointment());
+            appointment.cancel(data.reason());
     }
 }
