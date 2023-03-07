@@ -1,5 +1,6 @@
 package com.github.daianaegermichels.api.domain.appointments;
 
+import com.github.daianaegermichels.api.domain.physician.Specialty;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 
@@ -11,5 +12,7 @@ public record AppointmentsData(
         Long idPatient,
         @NotNull
         @Future
-        LocalDateTime data) {
+        LocalDateTime data,
+
+        Specialty specialty) {
 }
