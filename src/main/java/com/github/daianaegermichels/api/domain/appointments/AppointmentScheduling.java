@@ -1,11 +1,14 @@
 package com.github.daianaegermichels.api.domain.appointments;
 
 import com.github.daianaegermichels.api.domain.ValidationException;
+import com.github.daianaegermichels.api.domain.appointments.validations.ValidateAppointmentsScheduling;
 import com.github.daianaegermichels.api.domain.patient.PatientRepository;
 import com.github.daianaegermichels.api.domain.physician.Physician;
 import com.github.daianaegermichels.api.domain.physician.PhysicianRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AppointmentScheduling {
@@ -19,6 +22,10 @@ public class AppointmentScheduling {
 
     @Autowired
     private AppointmentsRepository appointmentsRepository;
+
+    @Autowired
+    private List<ValidateAppointmentsScheduling> validators;
+
     public void toSchedule(AppointmentsData data) {
         if (!patientRepository.existsById(data.idPatient())) {
             throw new ValidationException("The patient ID entered does not exist!");
@@ -26,6 +33,8 @@ public class AppointmentScheduling {
         if (data.idPhysician() != null && !physicianRepository.existsById(data.idPhysician())) {
             throw new ValidationException("The physician ID entered does not exist!");
         }
+
+        validators.forEach(v -> v.validate(data));
 
         var patient = patientRepository.findById(data.idPatient()).get();
         var physician = choosePhysician(data);
