@@ -1,4 +1,4 @@
-package com.github.daianaegermichels.api.domain.appointments.validations;
+package com.github.daianaegermichels.api.domain.appointments.validations.scheduling;
 
 import com.github.daianaegermichels.api.domain.ValidationException;
 import com.github.daianaegermichels.api.domain.appointments.AppointmentsData;

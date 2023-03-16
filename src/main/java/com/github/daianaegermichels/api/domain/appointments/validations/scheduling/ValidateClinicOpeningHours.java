@@ -1,13 +1,14 @@
-package com.github.daianaegermichels.api.domain.appointments.validations;
+package com.github.daianaegermichels.api.domain.appointments.validations.scheduling;
 
 import com.github.daianaegermichels.api.domain.ValidationException;
 import com.github.daianaegermichels.api.domain.appointments.AppointmentsData;
+import com.github.daianaegermichels.api.domain.appointments.validations.scheduling.ValidateAppointmentsScheduling;
 import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
 
 @Component
-public class ValidateClinicOpeningHours implements ValidateAppointmentsScheduling{
+public class ValidateClinicOpeningHours implements ValidateAppointmentsScheduling {
     public void validate(AppointmentsData data) {
         var dateAppointment = data.data();
 

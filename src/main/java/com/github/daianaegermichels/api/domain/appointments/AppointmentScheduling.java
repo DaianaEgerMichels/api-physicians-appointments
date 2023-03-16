@@ -1,7 +1,8 @@
 package com.github.daianaegermichels.api.domain.appointments;
 
 import com.github.daianaegermichels.api.domain.ValidationException;
-import com.github.daianaegermichels.api.domain.appointments.validations.ValidateAppointmentsScheduling;
+import com.github.daianaegermichels.api.domain.appointments.validations.canceller.ValidateAppointmentsCanceller;
+import com.github.daianaegermichels.api.domain.appointments.validations.scheduling.ValidateAppointmentsScheduling;
 import com.github.daianaegermichels.api.domain.patient.PatientRepository;
 import com.github.daianaegermichels.api.domain.physician.Physician;
 import com.github.daianaegermichels.api.domain.physician.PhysicianRepository;
@@ -25,6 +26,9 @@ public class AppointmentScheduling {
 
     @Autowired
     private List<ValidateAppointmentsScheduling> validators;
+
+    @Autowired
+    private List<ValidateAppointmentsCanceller> validatorCancel;
 
     public void toSchedule(AppointmentsData data) {
         if (!patientRepository.existsById(data.idPatient())) {
@@ -58,6 +62,8 @@ public class AppointmentScheduling {
             if (!appointmentsRepository.existsById(data.idAppointment())) {
                 throw new ValidationException("The appointment ID entered does not exist!");
             }
+
+            validatorCancel.forEach(v -> v.validate(data));
 
             var appointment = appointmentsRepository.getReferenceById(data.idAppointment());
             appointment.cancel(data.reason());

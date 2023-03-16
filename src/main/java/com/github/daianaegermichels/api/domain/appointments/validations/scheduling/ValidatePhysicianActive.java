@@ -1,7 +1,8 @@
-package com.github.daianaegermichels.api.domain.appointments.validations;
+package com.github.daianaegermichels.api.domain.appointments.validations.scheduling;
 
 import com.github.daianaegermichels.api.domain.ValidationException;
 import com.github.daianaegermichels.api.domain.appointments.AppointmentsData;
+import com.github.daianaegermichels.api.domain.appointments.validations.scheduling.ValidateAppointmentsScheduling;
 import com.github.daianaegermichels.api.domain.physician.PhysicianRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
