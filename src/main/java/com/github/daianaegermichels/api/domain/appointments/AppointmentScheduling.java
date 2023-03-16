@@ -22,9 +22,6 @@ public class AppointmentScheduling {
     private PatientRepository patientRepository;
 
     @Autowired
-    private AppointmentsRepository appointmentsRepository;
-
-    @Autowired
     private List<ValidateAppointmentsScheduling> validators;
 
     @Autowired
@@ -59,13 +56,13 @@ public class AppointmentScheduling {
     }
 
     public void cancel(AppointmentsCancelData data) {
-            if (!appointmentsRepository.existsById(data.idAppointment())) {
+            if (!repository.existsById(data.idAppointment())) {
                 throw new ValidationException("The appointment ID entered does not exist!");
             }
 
             validatorCancel.forEach(v -> v.validate(data));
 
-            var appointment = appointmentsRepository.getReferenceById(data.idAppointment());
+            var appointment = repository.getReferenceById(data.idAppointment());
             appointment.cancel(data.reason());
     }
 }

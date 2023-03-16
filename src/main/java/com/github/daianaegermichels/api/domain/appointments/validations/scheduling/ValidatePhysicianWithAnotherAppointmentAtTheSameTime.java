@@ -14,7 +14,7 @@ public class ValidatePhysicianWithAnotherAppointmentAtTheSameTime implements Val
     private AppointmentsRepository repository;
 
     public void validate(AppointmentsData data) {
-        var physicianHasAnotherAppointmentAtTheSameTime = repository.existsByPhysicianIdAndDataAndCancelReasonIsNull(data.idPhysician(), data.data());
+        var physicianHasAnotherAppointmentAtTheSameTime = repository.existsByPhysicianIdAndDataAndReasonIsNull(data.idPhysician(), data.data());
         if(physicianHasAnotherAppointmentAtTheSameTime) {
             throw new ValidationException("Physician already had another consultation at the same time!");
         }

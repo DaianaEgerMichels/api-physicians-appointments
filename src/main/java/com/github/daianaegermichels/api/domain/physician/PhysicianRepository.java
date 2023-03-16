@@ -13,17 +13,17 @@ public interface PhysicianRepository extends JpaRepository<Physician, Long> {
     Page<Physician> findAllByActiveTrue(Pageable pageable);
 
     @Query("""
-            SELECT p FROM physicians p 
+            SELECT p FROM Physician p 
             WHERE 
             p.active = 1 
             AND 
             p.specialty = :specialty 
             AND 
             p.id NOT IN ( 
-            SELECT a.physicians.id FROM appointments a 
+            SELECT a.physician.id FROM Appointments a 
             WHERE a.data = :data 
             AND 
-            a.cancel_reason IS NULL
+            a.reason IS NULL
             ) 
             ORDER BY RAND() 
             LIMIT 1
@@ -31,7 +31,7 @@ public interface PhysicianRepository extends JpaRepository<Physician, Long> {
     Physician chooseFreeRandomPhysicianOnDate(Specialty specialty, LocalDateTime data);
 
     @Query("""
-            SELECT p.active FROM physicians p WHERE p.id = :idPhysician
+            SELECT p.active FROM Physician p WHERE p.id = :idPhysician
             """)
     Boolean findActiveById(Long idPhysician);
 }

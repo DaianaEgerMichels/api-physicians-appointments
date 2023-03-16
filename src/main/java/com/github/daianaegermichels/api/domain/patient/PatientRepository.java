@@ -11,7 +11,7 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
     Page<Patient> findAllByActiveTrue(Pageable pageable);
 
     @Query("""
-            SELECT p.active FROM patients p WHERE p.id = :idPatient
+            SELECT p.active FROM Patient p WHERE p.id = :idPatient
             """)
     Boolean findActiveById(Long idPatient);
 }
