@@ -1,6 +1,7 @@
 package com.github.daianaegermichels.api.controller;
 
 import com.github.daianaegermichels.api.domain.patient.*;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,6 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("patients")
+@SecurityRequirement(name="bearer-key")
 public class PatientController {
 
     @Autowired

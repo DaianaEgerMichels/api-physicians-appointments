@@ -4,6 +4,7 @@ import com.github.daianaegermichels.api.domain.appointments.AppointmentSchedulin
 import com.github.daianaegermichels.api.domain.appointments.AppointmentsCancelData;
 import com.github.daianaegermichels.api.domain.appointments.AppointmentsData;
 import com.github.daianaegermichels.api.domain.appointments.AppointmentsDetails;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("appointments")
+@SecurityRequirement(name="bearer-key")
 public class AppointmentsController {
 
     @Autowired
