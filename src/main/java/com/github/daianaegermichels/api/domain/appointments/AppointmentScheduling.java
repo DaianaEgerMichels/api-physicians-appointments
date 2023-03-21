@@ -27,7 +27,7 @@ public class AppointmentScheduling {
     @Autowired
     private List<ValidateAppointmentsCanceller> validatorCancel;
 
-    public void toSchedule(AppointmentsData data) {
+    public AppointmentsDetails toSchedule(AppointmentsData data) {
         if (!patientRepository.existsById(data.idPatient())) {
             throw new ValidationException("The patient ID entered does not exist!");
         }
@@ -40,7 +40,8 @@ public class AppointmentScheduling {
         var patient = patientRepository.findById(data.idPatient()).get();
         var physician = choosePhysician(data);
         var appointments = new Appointments(null, physician, patient, data.data(), null);
-        repository.save(appointments);
+        var save = repository.save(appointments);
+        return new AppointmentsDetails(save.getId(),save.getPhysician().getId(), save.getPatient().getId(), save.getData());
     }
 
     private Physician choosePhysician(AppointmentsData data) {
