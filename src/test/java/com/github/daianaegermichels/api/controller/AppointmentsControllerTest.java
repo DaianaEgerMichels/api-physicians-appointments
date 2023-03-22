@@ -1,8 +1,6 @@
 package com.github.daianaegermichels.api.controller;
 
-import com.github.daianaegermichels.api.domain.appointments.AppointmentScheduling;
-import com.github.daianaegermichels.api.domain.appointments.AppointmentsData;
-import com.github.daianaegermichels.api.domain.appointments.AppointmentsDetails;
+import com.github.daianaegermichels.api.domain.appointments.*;
 import com.github.daianaegermichels.api.domain.physician.Specialty;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,6 +21,7 @@ import java.time.LocalDateTime;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @SpringBootTest
@@ -36,6 +35,8 @@ public class AppointmentsControllerTest {
     @Autowired
     private JacksonTester<AppointmentsData> appointmentsDataJson;
 
+    @Autowired
+    private JacksonTester<AppointmentsCancelData> appointmentsCancelDataJson;
     @Autowired
     private JacksonTester<AppointmentsDetails> appointmentsDetailsJson;
 
@@ -78,6 +79,37 @@ public class AppointmentsControllerTest {
         ).getJson();
 
         assertThat(response.getContentAsString()).isEqualTo(jsonExpected);
+    }
+
+    @Test
+    @DisplayName("Should return http code 400 when information is invalid")
+    @WithMockUser
+    void cancel() throws Exception {
+        var response = mvc.perform(delete("/appointments")).andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+    }
+
+    @Test
+    @DisplayName("Should return http code 204 when information is valid")
+    @WithMockUser
+    void cancelOk() throws Exception {
+        var data = LocalDateTime.now().plusHours(1);
+        var reason = CancellationReason.PATIENT_GAVE_UP;
+
+        var appointmentsDataDetails = new AppointmentsDetails(2l, 2l, 3l, data);
+        when(appointmentScheduling.toSchedule(any())).thenReturn(appointmentsDataDetails);
+
+        var response = mvc.perform(
+                        delete("/appointments")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(appointmentsCancelDataJson.write(
+                                        new AppointmentsCancelData(2l, reason)
+                                ).getJson())
+                )
+                .andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.NO_CONTENT.value());
     }
 
 }
